@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       # 保存に成功した場合はトップページへリダイレクト
-      redirect_to root_path , notice: 'プロフィールを編集しました'
+      redirect_to root_path , flash: {info: 'プロフィールを編集しました'}
     else
       # 保存に失敗した場合は編集画面へ戻す
       render 'edit'
@@ -43,7 +43,8 @@ class UsersController < ApplicationController
   end
 
   def correct_user
-#    binding.pry
-    redirect_to(root_url) unless @user == current_user
+    if @user != current_user then
+      redirect_to root_url , flash: {danger: '他ユーザーの編集は許可されません'}
+    end
   end
 end
