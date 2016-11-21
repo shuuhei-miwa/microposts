@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
                                      foreign_key: "follower_id",
                                      dependent:   :destroy
   has_many :following_users, through: :following_relationships, source: :followed
-  
+
   # フォローされている人
   has_many :follower_relationships, class_name:  "Relationship",
                                     foreign_key: "followed_id",
