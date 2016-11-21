@@ -33,6 +33,21 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end  
+
+  def followings
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following_users
+    render 'show_follow.html.erb'
+  end
+  
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.follower_users
+    render 'show_follow.html.erb'
+  end
+
   private
   
   def user_params
@@ -48,4 +63,5 @@ class UsersController < ApplicationController
       redirect_to root_url , flash: {danger: '他ユーザーの編集は許可されません'}
     end
   end
+  
 end
